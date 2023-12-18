@@ -1,14 +1,25 @@
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.swing.ImageIcon;
+
 public class Ship {
     /**
      * Used for placement colour changing.
-     * Valid: Indicates the ship could be placed at the current location shown as a Green ship.
-     * Invalid: Indicates the ship can't be placed at the current location shown as a Red ship.
-     * Placed: Used when the ship has been placed and will use default colour settings.
+     * Valid: Indicates the ship could be placed at the current location shown as a
+     * Green ship.
+     * Invalid: Indicates the ship can't be placed at the current location shown as
+     * a Red ship.
+     * Placed: Used when the ship has been placed and will use default colour
+     * settings.
      */
-    public enum ShipPlacementColour {Valid, Invalid, Placed}
+
+    private Image shipImage;
+
+    public enum ShipPlacementColour {
+        Valid, Invalid, Placed
+    }
 
     /**
      * The position in grid coordinates for where the ship is located.
@@ -23,25 +34,33 @@ public class Ship {
      */
     private int segments;
     /**
-     * True indicates the ship is horizontal, and false indicates the ship is vertical.
+     * True indicates the ship is horizontal, and false indicates the ship is
+     * vertical.
      */
     private boolean isSideways;
     /**
-     * The number of destroyed sections to help determine if all of the ship has been destroyed when compared to segments.
+     * The number of destroyed sections to help determine if all of the ship has
+     * been destroyed when compared to segments.
      */
     private int destroyedSections;
     /**
-     * Used to change the colour during manual placement by the player to show Green or Red to show valid and invalid placement.
+     * Used to change the colour during manual placement by the player to show Green
+     * or Red to show valid and invalid placement.
      */
     private ShipPlacementColour shipPlacementColour;
 
     /**
-     * Creates the ship with default properties ready for use. Assumes it has already been placed when created.
+     * Creates the ship with default properties ready for use. Assumes it has
+     * already been placed when created.
      *
-     * @param gridPosition The position where the ship is located in terms of grid coordinates.
-     * @param drawPosition Top left corner of the cell to start drawing the ship in represented in pixels.
-     * @param segments The number of segments in the ship to show how many cells it goes across.
-     * @param isSideways True indicates the ship is horizontal, and false indicates the ship is vertical.
+     * @param gridPosition The position where the ship is located in terms of grid
+     *                     coordinates.
+     * @param drawPosition Top left corner of the cell to start drawing the ship in
+     *                     represented in pixels.
+     * @param segments     The number of segments in the ship to show how many cells
+     *                     it goes across.
+     * @param isSideways   True indicates the ship is horizontal, and false
+     *                     indicates the ship is vertical.
      */
     public Ship(Position gridPosition, Position drawPosition, int segments, boolean isSideways) {
         this.gridPosition = gridPosition;
@@ -50,29 +69,46 @@ public class Ship {
         this.isSideways = isSideways;
         destroyedSections = 0;
         shipPlacementColour = ShipPlacementColour.Placed;
+
+        ImageIcon imageIcon = new ImageIcon("C:\\work\\k23\\DSA project\\hinh\\PatrolBoat\\ShipPatrolHullvertical.png");
+        shipImage = imageIcon.getImage();
+        // shipImage = shipImage.getScaledInstance(imageWidth, imageHeight,
+        // Image.SCALE_DEFAULT);
     }
 
     /**
-     * Draws the ship by first selecting the colour and then drawing the ship in the correct direction.
-     * Colour is selected to be: Green if currently placing and it is valid, red if it is placing and invalid.
-     * If it has already been placed it will show as red if destroyed, or dark gray in any other case.
+     * Draws the ship by first selecting the colour and then drawing the ship in the
+     * correct direction.
+     * Colour is selected to be: Green if currently placing and it is valid, red if
+     * it is placing and invalid.
+     * If it has already been placed it will show as red if destroyed, or dark gray
+     * in any other case.
      *
      * @param g Reference to the Graphics object for rendering.
      */
     public void paint(Graphics g) {
-        if(shipPlacementColour == ShipPlacementColour.Placed) {
+        if (shipPlacementColour == ShipPlacementColour.Placed) {
             g.setColor(destroyedSections >= segments ? Color.black : Color.DARK_GRAY);
         } else {
-            g.setColor(shipPlacementColour == ShipPlacementColour.Valid ? new Color(19,122,35) : Color.RED);
+            g.setColor(shipPlacementColour == ShipPlacementColour.Valid ? new Color(19, 122, 35) : Color.RED);
         }
-        if(isSideways) paintHorizontal(g);
-        else paintVertical(g);
+        if (isSideways)
+            paintHorizontal(g);
+        else
+            paintVertical(g);
+
+        // if (shipImage != null) {
+        // // Draw the ship image
+        // g.drawImage(shipImage, drawPosition.x, drawPosition.y, null);
+        // }
+
     }
 
     /**
      * Sets the placement colour to indicate the state of the ship.
      *
-     * @param shipPlacementColour Valid sets ship to show Green, Invalid sets ship to show Red, Placed sets to defaults.
+     * @param shipPlacementColour Valid sets ship to show Green, Invalid sets ship
+     *                            to show Red, Placed sets to defaults.
      */
     public void setShipPlacementColour(ShipPlacementColour shipPlacementColour) {
         this.shipPlacementColour = shipPlacementColour;
@@ -86,18 +122,22 @@ public class Ship {
     }
 
     /**
-     * Call when a section has been destroyed to let the ship keep track of how many sections have been destroyed.
+     * Call when a section has been destroyed to let the ship keep track of how many
+     * sections have been destroyed.
      */
     public void destroySection() {
         destroyedSections++;
     }
 
     /**
-     * Tests if the number of sections destroyed indicate all segments have been destroyed.
+     * Tests if the number of sections destroyed indicate all segments have been
+     * destroyed.
      *
      * @return True if all sections have been destroyed.
      */
-    public boolean isDestroyed() { return destroyedSections >= segments; }
+    public boolean isDestroyed() {
+        return destroyedSections >= segments;
+    }
 
     /**
      * Updates the position to draw the ship at to the newPosition.
@@ -129,51 +169,67 @@ public class Ship {
     }
 
     /**
-     * Gets a list of all cells that this ship occupies to be used for validation in AI checks.
+     * Gets a list of all cells that this ship occupies to be used for validation in
+     * AI checks.
      *
      * @return A list of all cells that this ship occupies.
      */
     public List<Position> getOccupiedCoordinates() {
         List<Position> result = new ArrayList<>();
-        if(isSideways) { // handle the case when horizontal
-            for(int x = 0; x < segments; x++) {
-                result.add(new Position(gridPosition.x+x, gridPosition.y));
+        if (isSideways) { // handle the case when horizontal
+            for (int x = 0; x < segments; x++) {
+                result.add(new Position(gridPosition.x + x, gridPosition.y));
             }
         } else { // handle the case when vertical
-            for(int y = 0; y < segments; y++) {
-                result.add(new Position(gridPosition.x, gridPosition.y+y));
+            for (int y = 0; y < segments; y++) {
+                result.add(new Position(gridPosition.x, gridPosition.y + y));
             }
         }
         return result;
     }
 
     /**
-     * Draws the vertical ship by first drawing a triangle for the first cell, and then a
+     * Draws the vertical ship by first drawing a triangle for the first cell, and
+     * then a
      * rectangle to cover the remaining cells based on the number of segments.
      *
      * @param g Reference to the Graphics object for rendering.
      */
     public void paintVertical(Graphics g) {
-        int boatWidth = (int)(SelectionGrid.CELL_SIZE * 0.8);
+        int boatWidth = (int) (SelectionGrid.CELL_SIZE * 0.8);
         int boatLeftX = drawPosition.x + SelectionGrid.CELL_SIZE / 2 - boatWidth / 2;
-        g.fillPolygon(new int[]{drawPosition.x+SelectionGrid.CELL_SIZE/2,boatLeftX,boatLeftX+boatWidth},
-                new int[]{drawPosition.y+SelectionGrid.CELL_SIZE/4,drawPosition.y+SelectionGrid.CELL_SIZE,drawPosition.y+SelectionGrid.CELL_SIZE},3);
-        g.fillRect(boatLeftX,drawPosition.y+SelectionGrid.CELL_SIZE, boatWidth,
-                (int)(SelectionGrid.CELL_SIZE * (segments-1.2)));
+        g.fillPolygon(new int[] { drawPosition.x + SelectionGrid.CELL_SIZE / 2, boatLeftX, boatLeftX + boatWidth },
+                new int[] { drawPosition.y + SelectionGrid.CELL_SIZE / 4, drawPosition.y + SelectionGrid.CELL_SIZE,
+                        drawPosition.y + SelectionGrid.CELL_SIZE },
+                3);
+        g.fillRect(boatLeftX, drawPosition.y + SelectionGrid.CELL_SIZE, boatWidth,
+                (int) (SelectionGrid.CELL_SIZE * (segments - 1.2)));
+        if (shipImage != null) {
+            g.drawImage(shipImage, drawPosition.x + SelectionGrid.CELL_SIZE, boatLeftX,
+                    (int) (SelectionGrid.CELL_SIZE * (segments - 1.2)), boatWidth, null);
+        }
+
     }
 
     /**
-     * Draws the horizontal ship by first drawing a triangle for the first cell, and then a
+     * Draws the horizontal ship by first drawing a triangle for the first cell, and
+     * then a
      * rectangle to cover the remaining cells based on the number of segments.
      *
      * @param g Reference to the Graphics object for rendering.
      */
     public void paintHorizontal(Graphics g) {
-        int boatWidth = (int)(SelectionGrid.CELL_SIZE * 0.8);
+        int boatWidth = (int) (SelectionGrid.CELL_SIZE * 0.8);
         int boatTopY = drawPosition.y + SelectionGrid.CELL_SIZE / 2 - boatWidth / 2;
-        g.fillPolygon(new int[]{drawPosition.x+SelectionGrid.CELL_SIZE/4,drawPosition.x+SelectionGrid.CELL_SIZE,drawPosition.x+SelectionGrid.CELL_SIZE},
-                      new int[]{drawPosition.y+SelectionGrid.CELL_SIZE/2,boatTopY,boatTopY+boatWidth},3);
-        g.fillRect(drawPosition.x+SelectionGrid.CELL_SIZE,boatTopY,
-                (int)(SelectionGrid.CELL_SIZE * (segments-1.2)), boatWidth);
+        g.fillPolygon(
+                new int[] { drawPosition.x + SelectionGrid.CELL_SIZE / 4, drawPosition.x + SelectionGrid.CELL_SIZE,
+                        drawPosition.x + SelectionGrid.CELL_SIZE },
+                new int[] { drawPosition.y + SelectionGrid.CELL_SIZE / 2, boatTopY, boatTopY + boatWidth }, 3);
+        g.fillRect(drawPosition.x + SelectionGrid.CELL_SIZE, boatTopY,
+                (int) (SelectionGrid.CELL_SIZE * (segments - 1.2)), boatWidth);
+        if (shipImage != null) {
+            g.drawImage(shipImage, drawPosition.x + SelectionGrid.CELL_SIZE, boatTopY,
+                    (int) (SelectionGrid.CELL_SIZE * (segments - 1.2)), boatWidth, null);
+        }
     }
 }
