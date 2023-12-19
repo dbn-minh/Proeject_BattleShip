@@ -75,7 +75,7 @@ public class Ship {
         // ImageIcon imageIcon1 = new ImageIcon("C:\\work\\k23\\DSA
         // project\\hinh\\PatrolBoat\\ShipPatrolHullvertical.png");
         ImageIcon imageIcon = new ImageIcon(
-                "C:\\work\\k23\\DSA project\\hinh\\PatrolBoat\\ShipPatrolHullhorizontal.png");
+                "C:\\work\\k23\\DSA project\\hinh\\Cruiser\\ShipCruiserHull.png");
         shipImage = imageIcon.getImage();
         // shipImage = imageIcon2.getImage();
         // shipImage = shipImage.getScaledInstance(imageWidth, imageHeight,
@@ -220,6 +220,7 @@ public class Ship {
     public void paintVertical(Graphics g) {
         int boatWidth = (int) (SelectionGrid.CELL_SIZE * 0.8);
         int boatLeftX = drawPosition.x + SelectionGrid.CELL_SIZE / 2 - boatWidth / 2;
+
         g.fillPolygon(new int[] { drawPosition.x + SelectionGrid.CELL_SIZE / 2, boatLeftX, boatLeftX + boatWidth },
                 new int[] { drawPosition.y + SelectionGrid.CELL_SIZE / 4, drawPosition.y + SelectionGrid.CELL_SIZE,
                         drawPosition.y + SelectionGrid.CELL_SIZE },
@@ -254,12 +255,14 @@ public class Ship {
     public void paintHorizontal(Graphics g) {
         int boatWidth = (int) (SelectionGrid.CELL_SIZE * 0.8);
         int boatTopY = drawPosition.y + SelectionGrid.CELL_SIZE / 2 - boatWidth / 2;
-        g.fillPolygon(
-                new int[] { drawPosition.x + SelectionGrid.CELL_SIZE / 4, drawPosition.x + SelectionGrid.CELL_SIZE,
-                        drawPosition.x + SelectionGrid.CELL_SIZE },
-                new int[] { drawPosition.y + SelectionGrid.CELL_SIZE / 2, boatTopY, boatTopY + boatWidth }, 3);
-        g.fillRect(drawPosition.x + SelectionGrid.CELL_SIZE, boatTopY,
-                (int) (SelectionGrid.CELL_SIZE * (segments - 1.2)), boatWidth);
+        // g.fillPolygon(
+        // new int[] { drawPosition.x + SelectionGrid.CELL_SIZE / 4, drawPosition.x +
+        // SelectionGrid.CELL_SIZE,
+        // drawPosition.x + SelectionGrid.CELL_SIZE },
+        // new int[] { drawPosition.y + SelectionGrid.CELL_SIZE / 2, boatTopY, boatTopY
+        // + boatWidth }, 3);
+        // g.fillRect(drawPosition.x + SelectionGrid.CELL_SIZE, boatTopY,
+        // (int) (SelectionGrid.CELL_SIZE * (segments - 1.2)), boatWidth);
         if (shipImage != null) {
             g.drawImage(shipImage, drawPosition.x + SelectionGrid.CELL_SIZE, boatTopY,
                     (int) (SelectionGrid.CELL_SIZE * (segments - 1.2)), boatWidth, null);
