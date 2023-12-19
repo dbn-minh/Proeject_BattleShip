@@ -5,13 +5,14 @@ import java.awt.event.KeyListener;
 public class Game implements KeyListener {
     public static void main(String[] args) {
         Game game = new Game();
+
     }
-    
+
     private GamePanel gamePanel;
 
     public Game() {
         // Choose the AI Difficulty
-        String[] options = new String[] {"Easy", "Medium", "Hard"};
+        String[] options = new String[] { "Easy", "Medium", "Hard" };
         String message = "Easy will make moves entirely randomly,\nMedium will focus on areas where it finds ships,"
                 + "\nand Hard will make smarter choices over Medium.";
         int difficultyChoice = JOptionPane.showOptionDialog(null, message,
@@ -37,8 +38,10 @@ public class Game implements KeyListener {
     }
 
     @Override
-    public void keyTyped(KeyEvent e) {}
+    public void keyTyped(KeyEvent e) {
+    }
 
     @Override
-    public void keyReleased(KeyEvent e) {}
+    public void keyReleased(KeyEvent e) {
+    }
 }

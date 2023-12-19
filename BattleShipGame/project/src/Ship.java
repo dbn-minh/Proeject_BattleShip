@@ -1,21 +1,25 @@
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.swing.ImageIcon;
 
 import java.awt.image.BufferedImage;
 
 public class Ship {
-    /**
-     * Used for placement colour changing.
-     * Valid: Indicates the ship could be placed at the current location shown as a
-     * Green ship.
-     * Invalid: Indicates the ship can't be placed at the current location shown as
-     * a Red ship.
-     * Placed: Used when the ship has been placed and will use default colour
-     * settings.
-     */
+    private static final Map<Integer, Image> shipImages = loadShipImages();
+
+    private static Map<Integer, Image> loadShipImages() {
+        Map<Integer, Image> images = new HashMap<>();
+        // Load images for each BoatSize
+        // Example: (You need to provide the actual file paths)
+        images.put(5, new ImageIcon("C:\\work\\k23\\DSA project\\hinh\\Cruiser\\ShipCruiserHull.png").getImage());
+
+        // Add more images for different BoatSizes
+        return images;
+    }
 
     private Image shipImage;
 
@@ -74,12 +78,11 @@ public class Ship {
 
         // ImageIcon imageIcon1 = new ImageIcon("C:\\work\\k23\\DSA
         // project\\hinh\\PatrolBoat\\ShipPatrolHullvertical.png");
-        ImageIcon imageIcon = new ImageIcon(
-                "C:\\work\\k23\\DSA project\\hinh\\Cruiser\\ShipCruiserHull.png");
-        shipImage = imageIcon.getImage();
-        // shipImage = imageIcon2.getImage();
-        // shipImage = shipImage.getScaledInstance(imageWidth, imageHeight,
-        // Image.SCALE_DEFAULT);
+        // ImageIcon imageIcon = new ImageIcon(
+        // "C:\\work\\k23\\DSA project\\hinh\\Cruiser\\ShipCruiserHull.png");
+        // shipImage = imageIcon.getImage();
+
+        shipImage = shipImages.get(segments);
     }
 
     /**
@@ -210,25 +213,10 @@ public class Ship {
         return rotatedImage;
     }
 
-    /**
-     * Draws the vertical ship by first drawing a triangle for the first cell, and
-     * then a
-     * rectangle to cover the remaining cells based on the number of segments.
-     *
-     * @param g Reference to the Graphics object for rendering.
-     */
     public void paintVertical(Graphics g) {
         int boatWidth = (int) (SelectionGrid.CELL_SIZE * 0.8);
         int boatLeftX = drawPosition.x + SelectionGrid.CELL_SIZE / 2 - boatWidth / 2;
 
-        // g.fillPolygon(new int[] { drawPosition.x + SelectionGrid.CELL_SIZE / 2,
-        // boatLeftX, boatLeftX + boatWidth },
-        // new int[] { drawPosition.y + SelectionGrid.CELL_SIZE / 4, drawPosition.y +
-        // SelectionGrid.CELL_SIZE,
-        // drawPosition.y + SelectionGrid.CELL_SIZE },
-        // 3);
-        // g.fillRect(boatLeftX, drawPosition.y + SelectionGrid.CELL_SIZE, boatWidth,
-        // (int) (SelectionGrid.CELL_SIZE * (segments - 1.2)));
         if (shipImage != null) {
             // Convert Image to BufferedImage
             BufferedImage bufferedImage = new BufferedImage(shipImage.getWidth(null), shipImage.getHeight(null),
@@ -247,24 +235,10 @@ public class Ship {
         }
     }
 
-    /**
-     * Draws the horizontal ship by first drawing a triangle for the first cell, and
-     * then a
-     * rectangle to cover the remaining cells based on the number of segments.
-     *
-     * @param g Reference to the Graphics object for rendering.
-     */
     public void paintHorizontal(Graphics g) {
         int boatWidth = (int) (SelectionGrid.CELL_SIZE * 0.8);
         int boatTopY = drawPosition.y + SelectionGrid.CELL_SIZE / 2 - boatWidth / 2;
-        // g.fillPolygon(
-        // new int[] { drawPosition.x + SelectionGrid.CELL_SIZE / 4, drawPosition.x +
-        // SelectionGrid.CELL_SIZE,
-        // drawPosition.x + SelectionGrid.CELL_SIZE },
-        // new int[] { drawPosition.y + SelectionGrid.CELL_SIZE / 2, boatTopY, boatTopY
-        // + boatWidth }, 3);
-        // g.fillRect(drawPosition.x + SelectionGrid.CELL_SIZE, boatTopY,
-        // (int) (SelectionGrid.CELL_SIZE * (segments - 1.2)), boatWidth);
+
         if (shipImage != null) {
             g.drawImage(shipImage, drawPosition.x + SelectionGrid.CELL_SIZE / 4, boatTopY,
                     (int) (SelectionGrid.CELL_SIZE * (segments - 1.2) + 30),
