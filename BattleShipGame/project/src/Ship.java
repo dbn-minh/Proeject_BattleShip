@@ -70,8 +70,12 @@ public class Ship {
         destroyedSections = 0;
         shipPlacementColour = ShipPlacementColour.Placed;
 
-        ImageIcon imageIcon = new ImageIcon("C:\\work\\k23\\DSA project\\hinh\\PatrolBoat\\ShipPatrolHullvertical.png");
+        // ImageIcon imageIcon1 = new ImageIcon("C:\\work\\k23\\DSA
+        // project\\hinh\\PatrolBoat\\ShipPatrolHullvertical.png");
+        ImageIcon imageIcon = new ImageIcon(
+                "C:\\work\\k23\\DSA project\\hinh\\PatrolBoat\\ShipPatrolHullhorizontal.png");
         shipImage = imageIcon.getImage();
+        // shipImage = imageIcon2.getImage();
         // shipImage = shipImage.getScaledInstance(imageWidth, imageHeight,
         // Image.SCALE_DEFAULT);
     }
@@ -205,8 +209,8 @@ public class Ship {
         g.fillRect(boatLeftX, drawPosition.y + SelectionGrid.CELL_SIZE, boatWidth,
                 (int) (SelectionGrid.CELL_SIZE * (segments - 1.2)));
         if (shipImage != null) {
-            g.drawImage(shipImage, drawPosition.x + SelectionGrid.CELL_SIZE, boatLeftX,
-                    (int) (SelectionGrid.CELL_SIZE * (segments - 1.2)), boatWidth, null);
+            g.drawImage(shipImage, boatLeftX, drawPosition.y + SelectionGrid.CELL_SIZE * 1.5, boatWidth,
+                    (int) (SelectionGrid.CELL_SIZE * (segments - 1.2)), null);
         }
 
     }
@@ -228,7 +232,7 @@ public class Ship {
         g.fillRect(drawPosition.x + SelectionGrid.CELL_SIZE, boatTopY,
                 (int) (SelectionGrid.CELL_SIZE * (segments - 1.2)), boatWidth);
         if (shipImage != null) {
-            g.drawImage(shipImage, drawPosition.x + SelectionGrid.CELL_SIZE, boatTopY,
+            g.drawImage(shipImage, drawPosition.x + SelectionGrid.CELL_SIZE * 1.5, boatTopY,
                     (int) (SelectionGrid.CELL_SIZE * (segments - 1.2)), boatWidth, null);
         }
     }
