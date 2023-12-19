@@ -221,12 +221,14 @@ public class Ship {
         int boatWidth = (int) (SelectionGrid.CELL_SIZE * 0.8);
         int boatLeftX = drawPosition.x + SelectionGrid.CELL_SIZE / 2 - boatWidth / 2;
 
-        g.fillPolygon(new int[] { drawPosition.x + SelectionGrid.CELL_SIZE / 2, boatLeftX, boatLeftX + boatWidth },
-                new int[] { drawPosition.y + SelectionGrid.CELL_SIZE / 4, drawPosition.y + SelectionGrid.CELL_SIZE,
-                        drawPosition.y + SelectionGrid.CELL_SIZE },
-                3);
-        g.fillRect(boatLeftX, drawPosition.y + SelectionGrid.CELL_SIZE, boatWidth,
-                (int) (SelectionGrid.CELL_SIZE * (segments - 1.2)));
+        // g.fillPolygon(new int[] { drawPosition.x + SelectionGrid.CELL_SIZE / 2,
+        // boatLeftX, boatLeftX + boatWidth },
+        // new int[] { drawPosition.y + SelectionGrid.CELL_SIZE / 4, drawPosition.y +
+        // SelectionGrid.CELL_SIZE,
+        // drawPosition.y + SelectionGrid.CELL_SIZE },
+        // 3);
+        // g.fillRect(boatLeftX, drawPosition.y + SelectionGrid.CELL_SIZE, boatWidth,
+        // (int) (SelectionGrid.CELL_SIZE * (segments - 1.2)));
         if (shipImage != null) {
             // Convert Image to BufferedImage
             BufferedImage bufferedImage = new BufferedImage(shipImage.getWidth(null), shipImage.getHeight(null),
@@ -255,12 +257,14 @@ public class Ship {
     public void paintHorizontal(Graphics g) {
         int boatWidth = (int) (SelectionGrid.CELL_SIZE * 0.8);
         int boatTopY = drawPosition.y + SelectionGrid.CELL_SIZE / 2 - boatWidth / 2;
-        g.fillPolygon(
-                new int[] { drawPosition.x + SelectionGrid.CELL_SIZE / 4, drawPosition.x + SelectionGrid.CELL_SIZE,
-                        drawPosition.x + SelectionGrid.CELL_SIZE },
-                new int[] { drawPosition.y + SelectionGrid.CELL_SIZE / 2, boatTopY, boatTopY + boatWidth }, 3);
-        g.fillRect(drawPosition.x + SelectionGrid.CELL_SIZE, boatTopY,
-                (int) (SelectionGrid.CELL_SIZE * (segments - 1.2)), boatWidth);
+        // g.fillPolygon(
+        // new int[] { drawPosition.x + SelectionGrid.CELL_SIZE / 4, drawPosition.x +
+        // SelectionGrid.CELL_SIZE,
+        // drawPosition.x + SelectionGrid.CELL_SIZE },
+        // new int[] { drawPosition.y + SelectionGrid.CELL_SIZE / 2, boatTopY, boatTopY
+        // + boatWidth }, 3);
+        // g.fillRect(drawPosition.x + SelectionGrid.CELL_SIZE, boatTopY,
+        // (int) (SelectionGrid.CELL_SIZE * (segments - 1.2)), boatWidth);
         if (shipImage != null) {
             g.drawImage(shipImage, drawPosition.x + SelectionGrid.CELL_SIZE / 4, boatTopY,
                     (int) (SelectionGrid.CELL_SIZE * (segments - 1.2) + 30),
