@@ -239,8 +239,8 @@ public class Ship {
             Image rotatedImage = rotateImage(bufferedImage, Math.PI / 2); // Rotate 90 degrees
 
             // Vẽ hình ảnh lên hình chữ nhật
-            g.drawImage(rotatedImage, boatLeftX, drawPosition.y + SelectionGrid.CELL_SIZE, boatWidth,
-                    (int) (SelectionGrid.CELL_SIZE * (segments - 1.2)), null);
+            g.drawImage(rotatedImage, boatLeftX, drawPosition.y + SelectionGrid.CELL_SIZE / 2, boatWidth,
+                    (int) (SelectionGrid.CELL_SIZE * (segments - 1.2) + 30), null);
 
         }
     }
