@@ -12,7 +12,7 @@ public class SelectionGrid extends Rectangle {
     /**
      * Size of each grid cell in pixels.
      */
-    public static final int CELL_SIZE = 55;
+    public static final int CELL_SIZE = 58;
     /**
      * Number of grid cells on the Horizontal axis.
      */

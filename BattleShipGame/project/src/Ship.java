@@ -15,10 +15,10 @@ public class Ship {
         Map<Integer, Image> images = new HashMap<>();
         // Load images for each BoatSize
         // Example: (You need to provide the actual file paths)
-        images.put(2, new ImageIcon("C:\\work\\k23\\DSA project\\hinh\\Plane\\PlaneF-35Lightning2.png").getImage());
-        images.put(3, new ImageIcon("C:\\work\\k23\\DSA project\\hinh\\Submarine\\ShipSubMarineHull.png").getImage());
-        images.put(4, new ImageIcon("C:\\work\\k23\\DSA project\\hinh\\Cruiser\\ShipCruiserHull.png").getImage());
-        images.put(5, new ImageIcon("C:\\work\\k23\\DSA project\\hinh\\Carrier\\ShipCarrierHull.png").getImage());
+        images.put(2, new ImageIcon("BattleShipGame/project/Image/PlaneF-35Lightning2.png").getImage());
+        images.put(3, new ImageIcon("BattleShipGame/project/Image/submarine.jpg").getImage());
+        images.put(4, new ImageIcon("BattleShipGame/project/Image/cruiser.jpg").getImage());
+        images.put(5, new ImageIcon("BattleShipGame/project/Image/ShipCarrierHull.png").getImage());
 
         // Add more images for different BoatSizes
         return images;
