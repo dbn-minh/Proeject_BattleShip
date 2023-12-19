@@ -4,6 +4,8 @@ import java.util.List;
 
 import javax.swing.ImageIcon;
 
+import java.awt.image.BufferedImage;
+
 public class Ship {
     /**
      * Used for placement colour changing.
@@ -192,6 +194,22 @@ public class Ship {
         return result;
     }
 
+    // Helper method to rotate a BufferedImage
+    private Image rotateImage(BufferedImage image, double radians) {
+        int width = image.getWidth();
+        int height = image.getHeight();
+
+        BufferedImage rotatedImage = new BufferedImage(height, width, BufferedImage.TYPE_INT_ARGB);
+        Graphics2D g2d = rotatedImage.createGraphics();
+
+        // Perform the rotation
+        g2d.rotate(radians, height / 2, width / 2);
+        g2d.drawImage(image, (height - width) / 2, (width - height) / 2, null);
+        g2d.dispose();
+
+        return rotatedImage;
+    }
+
     /**
      * Draws the vertical ship by first drawing a triangle for the first cell, and
      * then a
@@ -209,10 +227,21 @@ public class Ship {
         g.fillRect(boatLeftX, drawPosition.y + SelectionGrid.CELL_SIZE, boatWidth,
                 (int) (SelectionGrid.CELL_SIZE * (segments - 1.2)));
         if (shipImage != null) {
-            g.drawImage(shipImage, boatLeftX, drawPosition.y + SelectionGrid.CELL_SIZE * 1.5, boatWidth,
-                    (int) (SelectionGrid.CELL_SIZE * (segments - 1.2)), null);
-        }
+            // Convert Image to BufferedImage
+            BufferedImage bufferedImage = new BufferedImage(shipImage.getWidth(null), shipImage.getHeight(null),
+                    BufferedImage.TYPE_INT_ARGB);
+            Graphics2D g2d = bufferedImage.createGraphics();
+            g2d.drawImage(shipImage, 0, 0, null);
+            g2d.dispose();
 
+            // Create a rotated copy of the ship image
+            Image rotatedImage = rotateImage(bufferedImage, Math.PI / 2); // Rotate 90 degrees
+
+            // Vẽ hình ảnh lên hình chữ nhật
+            g.drawImage(rotatedImage, boatLeftX, drawPosition.y + SelectionGrid.CELL_SIZE, boatWidth,
+                    (int) (SelectionGrid.CELL_SIZE * (segments - 1.2)), null);
+
+        }
     }
 
     /**
@@ -232,7 +261,7 @@ public class Ship {
         g.fillRect(drawPosition.x + SelectionGrid.CELL_SIZE, boatTopY,
                 (int) (SelectionGrid.CELL_SIZE * (segments - 1.2)), boatWidth);
         if (shipImage != null) {
-            g.drawImage(shipImage, drawPosition.x + SelectionGrid.CELL_SIZE * 1.5, boatTopY,
+            g.drawImage(shipImage, drawPosition.x + SelectionGrid.CELL_SIZE, boatTopY,
                     (int) (SelectionGrid.CELL_SIZE * (segments - 1.2)), boatWidth, null);
         }
     }
