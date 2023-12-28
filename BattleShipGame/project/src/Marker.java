@@ -1,12 +1,10 @@
 import java.awt.*;
 import javax.swing.ImageIcon;
-import javax.swing.JLabel;
 import java.util.List;
 import java.util.ArrayList;
 import javax.swing.Timer;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.Component;
 
 
 public class Marker extends Rectangle {

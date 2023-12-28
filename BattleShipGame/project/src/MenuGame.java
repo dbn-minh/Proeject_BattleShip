@@ -2,7 +2,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import javax.swing.ImageIcon;
 
 public class MenuGame {
     private JFrame frame;
@@ -10,7 +9,7 @@ public class MenuGame {
     public MenuGame() {
         frame = new JFrame("Battleship Menu");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(1024, 1024);
+        frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
         frame.setLayout(new BorderLayout());
 
         // Create a JLabel for the background image
