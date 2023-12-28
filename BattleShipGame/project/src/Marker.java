@@ -6,11 +6,10 @@ import java.util.ArrayList;
 import javax.swing.Timer;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.Component;
+
 
 public class Marker extends Rectangle {
-    private JLabel imageLabel;
-
-    private final Color HIT_COLOUR = new Color(219, 23, 23, 180);
 
     private final Color MISS_COLOUR = new Color(26, 26, 97, 180);
 
@@ -28,22 +27,15 @@ public class Marker extends Rectangle {
 
     private Ship shipAtMarker;
 
-    private ImageIcon hitImage;
-
     public Marker(int x, int y, int width, int height) {
         super(x, y, width, height);
         hitImages = new ArrayList<>();
-        hitImages.add(new ImageIcon("BattleShipGame/project/Image/explosion0.png"));
-        hitImages.add(new ImageIcon("BattleShipGame/project/Image/explosion1.png"));
-        hitImages.add(new ImageIcon("BattleShipGame/project/Image/explosion2.png"));
-        hitImages.add(new ImageIcon("BattleShipGame/project/Image/explosion3.png"));
         hitImages.add(new ImageIcon("BattleShipGame/project/Image/explosion4.png"));
 
         explosionTimer = new Timer(EXPLOSION_DELAY, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 updateContinuousImage();
-                repaint();
             }
         });
         explosionTimer.setRepeats(true);
@@ -127,7 +119,6 @@ public class Marker extends Rectangle {
                 }
 
                 updateContinuousImage(); // Update the image continuously
-                repaint(); // Yêu cầu vẽ lại để cập nhật hình ảnh mới trên giao diện
             }
         }
     }
