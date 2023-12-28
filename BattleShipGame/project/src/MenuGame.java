@@ -3,14 +3,21 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+
 public class MenuGame {
     private JFrame frame;
+    private Sound backgroundMusic;
+    private Sound gameplayMusic;
 
     public MenuGame() {
         frame = new JFrame("Battleship Menu");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
         frame.setLayout(new BorderLayout());
+
+        backgroundMusic = new Sound("BattleShipGame/project/Audio/background-music.wav"); // Replace with the actual path to your music file
+        backgroundMusic.play();
+
 
         // Create a JLabel for the background image
         ImageIcon backgroundImage = new ImageIcon("BattleShipGame/project/Image/background.jpg"); // Replace with the
@@ -90,13 +97,18 @@ public class MenuGame {
 
         // Create the game instance
         Game game = new Game();
-
+        backgroundMusic.stop();
+        gameplayMusic = new Sound("BattleShipGame/project/Audio/gameplay-music.wav"); // Replace with the actual path to your music file
+        gameplayMusic.setVolume(-10);
+        gameplayMusic.play();
         // Start the game
         game.start();
     }
 
     private void exitGame() {
         frame.dispose();
+        backgroundMusic.close();
+        gameplayMusic.close();
         System.exit(0);
     }
 

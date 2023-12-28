@@ -18,7 +18,8 @@ public class Game implements KeyListener {
         UIManager.put("OptionPane.buttonFont", font);
         UIManager.put("OptionPane.messageFont", font);
         UIManager.put("OptionPane.minimumSize", new Dimension(400, 200));
-
+    
+        
         int difficultyChoice = JOptionPane.showOptionDialog(null, message,
                 "Choose an AI Difficulty",
                 JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE,
