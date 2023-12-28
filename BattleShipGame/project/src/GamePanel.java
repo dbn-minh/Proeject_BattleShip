@@ -33,12 +33,13 @@ public class GamePanel extends JPanel implements MouseListener, MouseMotionListe
 
     private GameState gameState;
 
+    private Sound shipPlacementSound, hitShipSound, missHitSound;
+
     public static boolean debugModeActive;
 
     public GamePanel(int aiChoice) {
         computer = new SelectionGrid(0, 0);
         player = new SelectionGrid(0, computer.getHeight() + 50);
-        // setBackground(new Color(42, 136, 163));
         setBackground(new Color(42, 136, 163));
         setPreferredSize(new Dimension(computer.getWidth(), player.getPosition().y + player.getHeight()));
         addMouseListener(this);
@@ -105,6 +106,7 @@ public class GamePanel extends JPanel implements MouseListener, MouseMotionListe
     }
 
     private void placeShip(Position targetPosition) {
+        shipPlacementSound = new Sound("BattleShipGame/project/Audio/placeship.wav");
         placingShip.setShipPlacementColour(Ship.ShipPlacementColour.Placed);
         player.placeShip(placingShip, tempPlacingPosition.x, tempPlacingPosition.y);
         placingShipIndex++;
@@ -114,6 +116,7 @@ public class GamePanel extends JPanel implements MouseListener, MouseMotionListe
                     new Position(player.getPosition().x + targetPosition.x * SelectionGrid.CELL_SIZE,
                             player.getPosition().y + targetPosition.y * SelectionGrid.CELL_SIZE),
                     SelectionGrid.BOAT_SIZES[placingShipIndex], true);
+            shipPlacementSound.play();
             updateShipPlacement(tempPlacingPosition);
         } else {
             gameState = GameState.FiringShots;
@@ -135,8 +138,19 @@ public class GamePanel extends JPanel implements MouseListener, MouseMotionListe
     }
 
     private void doPlayerTurn(Position targetPosition) {
+        hitShipSound = new Sound("BattleShipGame/project/Audio/hitSound.wav");
+        missHitSound = new Sound("BattleShipGame/project/Audio/missHitSound.wav");
+        hitShipSound.setVolume(-10);
+        missHitSound.setVolume(-10);
         boolean hit = computer.markPosition(targetPosition);
         String hitMiss = hit ? "Hit" : "Missed";
+        
+        if (hitMiss.equals("Hit")){
+            hitShipSound.play();
+        }else{
+            missHitSound.play();
+        }
+
         String destroyed = "";
         if (hit && computer.getMarkerAtPosition(targetPosition).getAssociatedShip().isDestroyed()) {
             destroyed = "(Destroyed)";
